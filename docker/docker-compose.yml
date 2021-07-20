@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  service-mariadb:
+    container_name: mariadb-10.6.3
+    image: mariadb:10.6.3
+    restart: always
+    environment:
+       - MARIADB_ROOT_PASSWORD=${DATABASE_ROOT_PASSWORD}
+       - MARIADB_DATABASE=${DATABASE_NAME}
+       - MARIADB_USER=${DATABASE_USER}
+       - MARIADB_PASSWORD=${DATABASE_PASSWORD}
+    ports:
+        - 3306:3306
+
+  service-php-fpm:
+    container_name: php-8.0.8-fpm
+    build:
+      context: ./php-fpm
+      args:
+        - CUSTOM_USER_NAME=${CUSTOM_USER_NAME}
+        - CUSTOM_UID=${CUSTOM_UID}
+        - CUSTOM_GID=${CUSTOM_GID}
+    depends_on:
+      - service-mariadb
+    environment:
+      - APP_ENV=${APP_ENV}
+      - APP_SECRET=${APP_SECRET}
+      - DATABASE_URL=${DATABASE_URL}
+    volumes:
+      - ./../symfony/:/var/www
+    user: ${CUSTOM_UID}:${CUSTOM_GID}
+
+  service-nginx:
+    container_name: nginx-1.21.1
+    build:
+      context: ./nginx
+    volumes:
+      - ./../symfony/:/var/www
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/sites/:/etc/nginx/sites-available
+      - ./nginx/conf.d/:/etc/nginx/conf.d
+      - ./logs:/tmp/log
+    depends_on:
+      - service-php-fpm
+    ports:
+      - "443:443"
