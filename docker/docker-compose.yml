@@ -2,8 +2,8 @@ version: '3.8'
 
 services:
   service-mariadb:
-    container_name: mariadb-10.6.3
-    image: mariadb:10.6.3
+    container_name: mariadb-10.9.3
+    image: mariadb:10.9.3
     restart: always
     environment:
        - MARIADB_ROOT_PASSWORD=${DATABASE_ROOT_PASSWORD}
@@ -12,15 +12,20 @@ services:
        - MARIADB_PASSWORD=${DATABASE_PASSWORD}
     ports:
         - 3306:3306
+    volumes:
+      - database:/var/lib/mariadb/data
 
   service-php-fpm:
-    container_name: php-8.0.8-fpm
+    container_name: php-8.1.10-fpm
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     build:
       context: ./php-fpm
       args:
-        - CUSTOM_USER_NAME=${CUSTOM_USER_NAME}
-        - CUSTOM_UID=${CUSTOM_UID}
-        - CUSTOM_GID=${CUSTOM_GID}
+        HOST_USERNAME: ${DOCKER_HOST_USERNAME}
+        HOST_UID: ${DOCKER_HOST_UID}
+        HOST_GID: ${DOCKER_HOST_GID}
+    hostname: php-8.1.10-fpm
     depends_on:
       - service-mariadb
     environment:
@@ -29,10 +34,10 @@ services:
       - DATABASE_URL=${DATABASE_URL}
     volumes:
       - ./../symfony/:/var/www
-    user: ${CUSTOM_UID}:${CUSTOM_GID}
+    user: ${DOCKER_HOST_UID}:${DOCKER_HOST_GID}
 
   service-nginx:
-    container_name: nginx-1.21.1
+    container_name: nginx-1.23.1
     build:
       context: ./nginx
     volumes:
@@ -44,4 +49,9 @@ services:
     depends_on:
       - service-php-fpm
     ports:
+      - "80:80"
       - "443:443"
+
+volumes:
+  database:
+    driver: local

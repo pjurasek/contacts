@@ -1,4 +1,4 @@
-FROM nginx:1.21.1
+FROM nginx:1.23.1
 
 COPY certificate /etc/nginx/certs
 
