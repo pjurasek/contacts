@@ -1,4 +1,4 @@
-# docker-sandbox
+# Contacts
 
 Install composer
 
@@ -9,6 +9,12 @@ bash install-composer.sh
 Create project with composer
 
 ```bash
-composer create-project symfony/skeleton:"6.1.*" symfony
+./composer.phar create-project symfony/skeleton:"6.1.*" symfony
+```
+
+Start container
+
+```bash
+make start exec
 ```
 
