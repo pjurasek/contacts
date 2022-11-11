@@ -1,0 +1,17 @@
+app:
+  form:
+    contact:
+      name: 'Jméno'
+      surname: 'Příjmení'
+      phone: 'Telefon'
+      button: 'Vložit'
+  ui:
+    contact:
+      label: 'Kontakty'
+      manage: 'Správa kontaktů'
+      none: 'V aplikaci nejsou zatím vloženy žádné kontakty'
+      name: 'Jméno'
+      surname: 'Příjmení'
+      phone: 'Telefon'
+      version: 'Verze'
+      saved: 'Nový kontakt uložen.'

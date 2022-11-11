@@ -2,8 +2,8 @@ version: '3.8'
 
 services:
   service-mariadb:
-    container_name: mariadb-10.9.3
-    image: mariadb:10.9.3
+    container_name: mariadb-10.7.6
+    image: mariadb:10.7.6
     restart: always
     environment:
        - MARIADB_ROOT_PASSWORD=${DATABASE_ROOT_PASSWORD}
