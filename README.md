@@ -52,3 +52,6 @@ Contact form is available on the URL
 http://localhost
 ```
 
+### Preview
+
+![Contacts app](/docs/contacts-app.png)
