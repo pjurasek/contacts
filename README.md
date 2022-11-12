@@ -1,20 +1,54 @@
 # Contacts
 
-Install composer
+This is a demo app for contacts.
+
+### Using Docker
+
+You need  [Docker](https://github.com/docker/docker) and  [docker-compose](https://github.com/docker/compose) and make.
+
+### Installation
+
+First, clone repository:
 
 ```bash
-bash install-composer.sh
+$ git clone https://github.com/pjurasek/contacts.git
 ```
 
-Create project with composer
+Build Docker images:
 
 ```bash
-./composer.phar create-project symfony/skeleton:"6.1.*" symfony
+$ make build
 ```
 
-Start container
+Run Docker containers:
 
 ```bash
-make start exec
+$ make start
+```
+
+### How it works?
+
+The `docker-compose` built images:
+- `mariadb`: This is the Maria database container.
+- `php-fpm`: This is the PHP FPM container including the application volume mounted on.
+- `nginx`: This is the Nginx web server container in which php volume are mounted on.
+
+The result is the following running containers:
+```bash
+$ cd docker & docker-compose ps
+```
+
+### Troubleshooting
+Remove container
+```bash
+$ docker container rm -f <id-container>
+```
+
+### Contact form
+
+Contact form is available on the URL
+
+```
+http://localhost
 ```
 
