@@ -54,4 +54,4 @@ http://localhost
 
 ### Preview
 
-![Contacts app](/docs/contacts-app.png)
+<img src="https://raw.githubusercontent.com/pjurasek/contacts/master/symfony/docs/contacts-app.png" />
