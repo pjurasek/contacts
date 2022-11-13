@@ -35,7 +35,7 @@ The `docker-compose` built images:
 
 The result is the following running containers:
 ```bash
-$ cd docker & docker-compose ps
+$ cd docker && docker-compose ps
 ```
 
 ### Troubleshooting
