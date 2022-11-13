@@ -6,6 +6,8 @@ namespace App\Tests\Form\Type;
 
 use App\Entity\Contact;
 use App\Form\ContactType;
+use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 
 class ContactTypeTest extends TypeTestCase
@@ -25,7 +27,7 @@ class ContactTypeTest extends TypeTestCase
         $expected = new Contact();
         $expected->setName('Jan');
         $expected->setSurname('Tester');
-        $expected->setName('+420721010203');
+        $expected->setPhone('+420721010203');
 
         $form->submit($formData);
 
